@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.Collections;
+
 /**
  * Implementation of a min heap (i.e. lower priority values are dequeued sooner.
  * @param <P> - comparable type for priority
@@ -141,9 +144,9 @@ public class MinHeap<P extends Comparable<P>, T> {
 	private int getParentIndex(int index)
 	{
 		if ((index % 2) == 0)
-			return (int) (index - 2)/2;
+			return (index - 2)/2;
 		else
-			return (int) (index - 1)/2;
+			return (index - 1)/2;
 	}
 
 	/**
@@ -196,34 +199,59 @@ public class MinHeap<P extends Comparable<P>, T> {
 	 */
 	private void floydsAlgorithm()
 	{
-		int lastNonLeaf = (int) (heap.length/2 - 1);
+		int lastNonLeaf = (heap.length/2 - 1);
 		for (int i=lastNonLeaf; i >= 0; i--) {
 			moveDown(i, count-1);
 		}
 	}
-	
+
+	/**
+	 * Generates an array of values from 0 to size - 1 that is
+	 * randomly shuffled.
+	 * @param size - size of the array
+	 * @return random array
+	 */
+	public static Integer [] getRandomArray(int size) {
+
+		Integer [] arr = new Integer[size];
+
+		for (int i=0; i < size; i++) {
+			arr[i] = (size - 1) - i;
+		}
+
+		Collections.shuffle(Arrays.asList(arr));
+
+
+		return arr;
+	}
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 
-		
-		Integer [] data = new Integer[]{1, 2, 10, 5, 30, 7, 9, 100};
+
+		int size = 20;
+		Integer [] data = MinHeap.getRandomArray(size);
+
+
 	
 		System.out.println("Top-Down Heap Demo");
 		
-		MinHeap<Integer,Integer> h = new MinHeap<Integer,Integer>(10);
-	
+		MinHeap<Integer,Integer> h = new MinHeap<Integer,Integer>(size);
+
+		System.out.println("Enqueue:");
 		for (int i=0; i < data.length; i++) {
+			System.out.println(data[i]);
 			h.enqueue(data[i],data[i]);
 		}
-		
-		
+
+		System.out.println("Dequeue:");
 		while (h.isEmpty() == false) {
 			System.out.println(h.dequeue());
 		}
 		
-		System.out.println("Bottom-Up Heap Demo");
+		System.out.println("Bottom-Up \"Heapify\" Heap Demo");
 		
 		MinHeap<Integer, Integer> h2 = new MinHeap<Integer,Integer>(data,data);
 		
