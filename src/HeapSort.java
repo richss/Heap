@@ -24,35 +24,34 @@ public class HeapSort {
         }
     }
 
-    /**
-     * Restores a heap by moving a value down through the array.
-     * @param first - first index of move down algorithm
-     * @param last - last index of the move down algorithm
-     */
-    public static void moveDown(int [] data, int first, int last)
-    {
-        int cur = first;
-        int smallest = 2*cur+1; //Left child of cur
+      /**
+  	 * Restores a heap by moving a value down through the array.
+  	 * @param first - first index of move down algorithm
+  	 * @param last - last index of the move down algorithm
+  	 */
+  	public static void moveDown(int [] data, int first, int last)
+  	{
+  	    int cur = first;
+  	    int largest = 2*cur+1; //Left child of cur
 
-        while (smallest <= last) {
+  	    while (largest <= last) {
 
-            //If two children, find smallest of two.
-            if (smallest < last)
-                if (data[smallest] < data[smallest+1])
-                    smallest++;
+  	    	//If two children, find largest of two.
+  	    	if (largest < last)
+  	    		if (heap[largest] < heap[largest+1])
+              largest++;
 
-            //Compare cur with smallest sub-child.
-            if (data[cur] < data[smallest]) {
-                swap(data, cur, smallest);
-                cur = smallest;
-                smallest = 2*cur + 1;
-            }
-            else
-                return; //Done restoring
-        }
+  	    	//Compare cur with largest sub-child.
+  	    	if (heap[cur] < heap[largest]) {
+  	    		swap(cur, largest);
+  	    		cur = largest;
+  	    		largest = 2*cur + 1; 
+  	    	}
+  	    	else
+  	    		return; //Done restoring
+  	    }
 
-    }
-
+  	}
 
     /**
      * Swaps the values within an array between two indices (indexX and indexY
